@@ -3,6 +3,7 @@ package lk.ijse.multiChatApplication.controller;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -11,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import lk.ijse.multiChatApplication.model.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,6 +21,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static lk.ijse.multiChatApplication.controller.LoginFormController.users;
 
 /**
  * @author : Pasan Pahasara
@@ -97,6 +101,30 @@ public class UserChatRoomController extends Thread implements Initializable {
         }
     }
 
+    /**
+     * Handle Send Event(Print Username)
+     */
+    public void handleSendEvent(MouseEvent mouseEvent) {
+        send();
+        for (User user : users) {
+            System.out.println(user.name);
+        }
+    }
+
+    /**
+     * Send Message
+     */
+    public void send() {
+        String message = msgField.getText();
+        writer.println(LoginFormController.username + ": " + message);
+        messageRoom.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        messageRoom.appendText("Me: " + message + "\n");
+        msgField.setText("");
+        if (message.equalsIgnoreCase("BYE") || (message.equalsIgnoreCase("logout"))) {
+            System.exit(0);
+        }
+    }
+
     public void sendMessageByKey(KeyEvent keyEvent) {
     }
 
@@ -104,9 +132,6 @@ public class UserChatRoomController extends Thread implements Initializable {
     }
 
     public void selectImage(MouseEvent mouseEvent) {
-    }
-
-    public void handleSendEvent(MouseEvent mouseEvent) {
     }
 
     public void handleProfileBtn(ActionEvent actionEvent) {
