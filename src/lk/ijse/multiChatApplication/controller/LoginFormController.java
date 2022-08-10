@@ -1,6 +1,7 @@
 package lk.ijse.multiChatApplication.controller;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -30,13 +31,28 @@ public class LoginFormController {
     public Label goBack;
     public JFXButton btnLogin;
 
-    public void handleButtonAction(ActionEvent actionEvent) {
-    }
 
-    public void login(ActionEvent actionEvent) {
+    /**
+     * Navigations To SignUp And Login
+     */
+    public void handleButtonAction(ActionEvent actionEvent) {
+        if (actionEvent.getSource().equals(btnSignUp)) {
+            new FadeTransition().play();
+            pnSignUp.toFront();
+        }
+        if (actionEvent.getSource().equals(btnLogin)) {
+            new FadeTransition().play();
+            pnSignIn.toFront();
+        }
+        loginNotifier.setOpacity(0);
+        txtUsername.setText("");
+        txtPassword.setText("");
     }
 
     public void registration(ActionEvent actionEvent) {
+    }
+
+    public void login(ActionEvent actionEvent) {
     }
 
     public void backLogin(MouseEvent mouseEvent) {
