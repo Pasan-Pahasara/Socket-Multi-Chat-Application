@@ -155,6 +155,12 @@ public class LoginFormController {
         stage.show();
     }
 
+    /**
+     * Navigations To LogIn
+     */
     public void backLogin(MouseEvent mouseEvent) {
+        if (mouseEvent.getSource().equals(btnBack)) {
+            pnSignIn.toFront();
+        }
     }
 }
