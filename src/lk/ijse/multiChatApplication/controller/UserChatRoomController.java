@@ -2,6 +2,7 @@ package lk.ijse.multiChatApplication.controller;
 
 import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXButton;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
@@ -10,15 +11,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lk.ijse.multiChatApplication.model.User;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
@@ -184,8 +189,8 @@ public class UserChatRoomController extends Thread implements Initializable {
         fileChooser.setTitle("Open Image");
         try {
             this.filePath = fileChooser.showOpenDialog(stage);
-        }catch (NullPointerException e){
-            new Alert(Alert.AlertType.ERROR,"Empty Select");
+        } catch (NullPointerException e) {
+            new Alert(Alert.AlertType.ERROR, "Empty Select");
         }
         fileChoosePath.setText(filePath.getPath());
         saveControl = true;
@@ -195,6 +200,18 @@ public class UserChatRoomController extends Thread implements Initializable {
      * Save Image
      */
     public void saveImage(ActionEvent actionEvent) {
+        if (saveControl) {
+            try {
+                BufferedImage bufferedImage = ImageIO.read(filePath);
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                proImage.setImage(image);
+                showProPic.setFill(new ImagePattern(image));
+                saveControl = false;
+                fileChoosePath.setText("");
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
 
     public void selectImage(MouseEvent mouseEvent) {
