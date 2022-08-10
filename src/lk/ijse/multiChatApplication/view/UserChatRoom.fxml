@@ -19,6 +19,65 @@
    <children>
       <StackPane layoutY="57.0" prefHeight="486.0" prefWidth="332.0">
          <children>
+            <Pane fx:id="profile" prefHeight="484.0" prefWidth="327.0" style="-fx-background-color: #F3F3F3;">
+               <children>
+                  <ImageView fx:id="proImage" fitHeight="84.0" fitWidth="83.0" layoutX="233.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/Vector6.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="26.0" layoutY="90.0" text="User Name: " textFill="#686565">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="27.0" layoutY="123.0" text="Phone No:" textFill="#686565">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="27.0" layoutY="147.0" prefHeight="34.0" prefWidth="74.0" text="Gender:" textFill="#686565">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="fullName" layoutX="119.0" layoutY="90.0" textFill="#a8a2a2">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="phoneNo" layoutX="120.0" layoutY="123.0" textFill="#a8a2a2">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="gender" layoutX="120.0" layoutY="147.0" prefHeight="34.0" prefWidth="74.0" textFill="#a8a2a2">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="28.0" layoutY="188.0" text="Change Profile Picture:" textFill="#686565">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="fileChoosePath" editable="false" layoutX="29.0" layoutY="222.0" prefHeight="27.0" prefWidth="166.0" promptText="Choose Image..." style="-fx-background-color: #455a64; -fx-background-radius: 7;">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <JFXButton buttonType="RAISED" layoutX="224.0" layoutY="220.0" onAction="#chooseImageButton" prefHeight="20.0" prefWidth="77.0" style="-fx-background-color: #455a64; -fx-background-radius: 30;" text="Choose" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" layoutX="114.0" layoutY="280.0" onAction="#saveImage" prefHeight="31.0" prefWidth="107.0" ripplerFill="#5a7682" style="-fx-background-color: #455a64; -fx-background-radius: 10;" text="Save" textFill="WHITE">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
             <Pane fx:id="chat" prefHeight="494.0" prefWidth="332.0" style="-fx-background-color: FFFFFF;">
                <children>
                   <Line endX="231.0" layoutX="100.0" layoutY="4.0" startX="-100.0" stroke="#bec0c9" />
