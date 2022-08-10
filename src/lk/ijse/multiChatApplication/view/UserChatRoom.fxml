@@ -61,7 +61,7 @@
                         <Font name="Arial" size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="fileChoosePath" editable="false" layoutX="29.0" layoutY="222.0" prefHeight="27.0" prefWidth="166.0" promptText="Choose Image..." style="-fx-background-color: #455a64; -fx-background-radius: 7;">
+                  <TextField fx:id="fileChoosePath" editable="false" layoutX="29.0" layoutY="222.0" prefHeight="27.0" prefWidth="166.0" promptText="Choose Image..." style="-fx-background-color: #455a64; -fx-background-radius: 7;" styleClass="Chooser" stylesheets="@css/style.css">
                      <font>
                         <Font size="15.0" />
                      </font>
