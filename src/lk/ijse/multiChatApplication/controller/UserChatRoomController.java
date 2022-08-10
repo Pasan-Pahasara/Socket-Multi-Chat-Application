@@ -5,6 +5,8 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -13,12 +15,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import lk.ijse.multiChatApplication.model.User;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,10 +44,15 @@ public class UserChatRoomController extends Thread implements Initializable {
     public ImageView proImage;
     public TextField fileChoosePath;
     public boolean toggleChat = false, toggleProfile = false;
+    public boolean saveControl = false;
 
     Socket socket;
     BufferedReader reader;
     PrintWriter writer;
+
+    private FileChooser fileChooser;
+    private File filePath;
+
 
     /**
      * Initializes the controller class.
@@ -169,7 +175,20 @@ public class UserChatRoomController extends Thread implements Initializable {
         }
     }
 
+    /**
+     * Choose Image
+     */
     public void chooseImageButton(ActionEvent actionEvent) {
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Image");
+        try {
+            this.filePath = fileChooser.showOpenDialog(stage);
+        }catch (NullPointerException e){
+            new Alert(Alert.AlertType.ERROR,"Empty Select");
+        }
+        fileChoosePath.setText(filePath.getPath());
+        saveControl = true;
     }
 
     public void saveImage(ActionEvent actionEvent) {

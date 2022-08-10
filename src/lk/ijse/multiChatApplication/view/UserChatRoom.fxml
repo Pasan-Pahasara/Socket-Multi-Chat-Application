@@ -66,7 +66,7 @@
                         <Font size="15.0" />
                      </font>
                   </TextField>
-                  <JFXButton buttonType="RAISED" layoutX="224.0" layoutY="220.0" onAction="#chooseImageButton" prefHeight="20.0" prefWidth="77.0" style="-fx-background-color: #455a64; -fx-background-radius: 30;" text="Choose" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="224.0" layoutY="220.0" onAction="#chooseImageButton" prefHeight="20.0" prefWidth="77.0" style="-fx-background-color: #455a64; -fx-background-radius: 30;" styleClass="Chooser" stylesheets="@css/style.css" text="Choose" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
