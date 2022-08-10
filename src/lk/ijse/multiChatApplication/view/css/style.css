@@ -2,3 +2,8 @@
     -fx-background-color: #44d7b6 !important;
     -fx-text-fill: #ffff;
 }
+
+.btnSingUp:hover {
+    -fx-background-color: #44d7b6 !important;
+    -fx-text-fill: #ffff;
+}
