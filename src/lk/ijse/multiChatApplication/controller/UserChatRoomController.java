@@ -191,6 +191,9 @@ public class UserChatRoomController extends Thread implements Initializable {
         saveControl = true;
     }
 
+    /**
+     * Save Image
+     */
     public void saveImage(ActionEvent actionEvent) {
     }
 
