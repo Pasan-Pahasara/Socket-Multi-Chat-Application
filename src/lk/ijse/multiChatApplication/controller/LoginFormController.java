@@ -17,6 +17,8 @@ import java.util.ArrayList;
  **/
 public class LoginFormController {
     public static ArrayList<User> users = new ArrayList<>();
+    public static String username, password, gender;
+    public static ArrayList<User> loggedInUser = new ArrayList<>();
     public Pane pnSignIn;
     public PasswordField txtPassword;
     public TextField txtUsername;
@@ -101,7 +103,30 @@ public class LoginFormController {
         return true;
     }
 
+    /**
+     * Login User Account
+     */
     public void login(ActionEvent actionEvent) {
+        username = txtUsername.getText();
+        password = txtPassword.getText();
+        boolean login = false;
+        for (User x : users) {
+            if (x.name.equalsIgnoreCase(username) && x.password.equalsIgnoreCase(password)) {
+                login = true;
+                loggedInUser.add(x);
+                System.out.println(x.name);
+                gender = x.gender;
+                break;
+            }
+        }
+        if (login) {
+            changeWindow();
+        } else {
+            loginNotifier.setOpacity(1);
+        }
+    }
+
+    private void changeWindow() {
     }
 
     public void backLogin(MouseEvent mouseEvent) {
