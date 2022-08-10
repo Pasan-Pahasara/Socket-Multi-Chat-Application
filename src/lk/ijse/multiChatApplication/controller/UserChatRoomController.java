@@ -1,5 +1,6 @@
 package lk.ijse.multiChatApplication.controller;
 
+import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -41,6 +42,7 @@ public class UserChatRoomController extends Thread implements Initializable {
     public Label gender;
     public ImageView proImage;
     public TextField fileChoosePath;
+    public boolean toggleChat = false, toggleProfile = false;
 
     Socket socket;
     BufferedReader reader;
@@ -134,19 +136,38 @@ public class UserChatRoomController extends Thread implements Initializable {
         }
     }
 
-    public void selectEmoji(MouseEvent mouseEvent) {
-    }
-
-    public void selectImage(MouseEvent mouseEvent) {
-    }
-
+    /**
+     * Navigations To View Profile
+     */
     public void handleProfileBtn(ActionEvent actionEvent) {
+        if (actionEvent.getSource().equals(profileBtn) && !toggleProfile) {
+            new FadeIn(profile).play();
+            profile.toFront();
+            chat.toBack();
+            toggleProfile = true;
+            toggleChat = false;
+            setProfile();
+        } else if (actionEvent.getSource().equals(profileBtn) && toggleProfile) {
+            new FadeIn(chat).play();
+            chat.toFront();
+            toggleProfile = false;
+            toggleChat = false;
+        }
+    }
+
+    private void setProfile() {
+    }
+
+    public void chooseImageButton(ActionEvent actionEvent) {
     }
 
     public void saveImage(ActionEvent actionEvent) {
     }
 
-    public void chooseImageButton(ActionEvent actionEvent) {
+    public void selectImage(MouseEvent mouseEvent) {
+    }
+
+    public void selectEmoji(MouseEvent mouseEvent) {
     }
 
 }
