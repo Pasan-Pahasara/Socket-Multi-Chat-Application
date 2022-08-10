@@ -56,7 +56,7 @@
                         <Font name="Arial" size="16.0" />
                      </font>
                   </Label>
-                  <JFXButton buttonType="RAISED" layoutX="184.0" layoutY="390.0" onAction="#registration" prefHeight="33.0" prefWidth="108.0" style="-fx-border-color: #44d7b6; -fx-border-radius: 90; -fx-background-radius: 90;" text="SIGN Up" textFill="#44d7b6">
+                  <JFXButton buttonType="RAISED" layoutX="184.0" layoutY="390.0" onAction="#registration" prefHeight="33.0" prefWidth="108.0" style="-fx-border-color: #44d7b6; -fx-border-radius: 90; -fx-background-radius: 90;" styleClass="btnSingUp" stylesheets="@css/style.css" text="SIGN Up" textFill="#44d7b6">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
