@@ -117,7 +117,7 @@
                         <Font name="Arial" size="13.0" />
                      </font>
                   </Label>
-                  <JFXButton buttonType="RAISED" layoutX="183.0" layoutY="407.0" onAction="#login" prefHeight="32.0" prefWidth="108.0" style="-fx-background-radius: 90; -fx-border-color: #44d7b6; -fx-border-radius: 90;" text="LOGIN" textFill="#44d7b6">
+                  <JFXButton buttonType="RAISED" layoutX="183.0" layoutY="407.0" onAction="#login" prefHeight="32.0" prefWidth="108.0" style="-fx-background-radius: 90; -fx-border-color: #44d7b6; -fx-border-radius: 90;" styleClass="btnLogin" stylesheets="@css/style.css" text="LOGIN" textFill="#44d7b6">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
