@@ -125,7 +125,13 @@ public class UserChatRoomController extends Thread implements Initializable {
         }
     }
 
+    /**
+     * Send Message By Key
+     */
     public void sendMessageByKey(KeyEvent keyEvent) {
+        if (keyEvent.getCode().toString().equals("ENTER")) {
+            send();
+        }
     }
 
     public void selectEmoji(MouseEvent mouseEvent) {
