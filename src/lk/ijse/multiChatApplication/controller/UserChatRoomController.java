@@ -155,7 +155,18 @@ public class UserChatRoomController extends Thread implements Initializable {
         }
     }
 
+    /**
+     * Set Profile
+     */
     private void setProfile() {
+        for (User user : users) {
+            if (LoginFormController.username.equalsIgnoreCase(user.name)) {
+                fullName.setText(user.name);
+                fullName.setOpacity(1);
+                phoneNo.setText(user.phoneNo);
+                gender.setText(user.gender);
+            }
+        }
     }
 
     public void chooseImageButton(ActionEvent actionEvent) {
