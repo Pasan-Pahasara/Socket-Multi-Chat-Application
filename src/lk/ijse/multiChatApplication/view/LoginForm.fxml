@@ -3,7 +3,9 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,6 +17,72 @@
    <children>
       <StackPane prefHeight="547.0" prefWidth="331.0">
          <children>
+            <Pane fx:id="pnSignUp" prefHeight="543.0" prefWidth="331.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <ImageView fitHeight="143.0" fitWidth="222.0" layoutX="212.0" layoutY="-29.0">
+                     <image>
+                        <Image url="@assets/Group%201156.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="btnBack" fitHeight="33.0" fitWidth="15.0" layoutX="40.0" layoutY="50.0" onMouseClicked="#backLogin" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/Vector5.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="119.0" prefHeight="66.0" prefWidth="201.0" text="Create Account" textFill="#44d7b6">
+                     <font>
+                        <Font name="Serif Bold" size="29.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtRegName" layoutX="39.0" layoutY="194.0" prefHeight="31.0" prefWidth="252.0" promptText="Username" style="-fx-background-radius: 10;" />
+                  <TextField fx:id="txtRegPassword" layoutX="39.0" layoutY="238.0" prefHeight="31.0" prefWidth="252.0" promptText="Password" style="-fx-background-radius: 10;" />
+                  <TextField fx:id="txtRegPhoneNo" layoutX="39.0" layoutY="282.0" prefHeight="31.0" prefWidth="252.0" promptText="Phone Number" style="-fx-background-radius: 10;" />
+                  <Label layoutX="41.0" layoutY="323.0" prefHeight="29.0" prefWidth="59.0" text="Gender" />
+                  <RadioButton fx:id="male" layoutX="109.0" layoutY="329.0" mnemonicParsing="false" text="Male">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="Gender" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="female" layoutX="187.0" layoutY="329.0" mnemonicParsing="false" text="Female" textFill="#070707" toggleGroup="$Gender">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </RadioButton>
+                  <Label fx:id="controlRegLabel" layoutX="39.0" layoutY="353.0" opacity="0.0" text="Please, Enter all the necessary Info" textFill="#f44336">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                  </Label>
+                  <JFXButton buttonType="RAISED" layoutX="184.0" layoutY="390.0" onAction="#registration" prefHeight="33.0" prefWidth="108.0" style="-fx-border-color: #44d7b6; -fx-border-radius: 90; -fx-background-radius: 90;" text="SIGN Up" textFill="#44d7b6">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </JFXButton>
+                  <Label fx:id="success" layoutX="64.0" layoutY="428.0" opacity="0.0" text="Registration Successful" textFill="#6abf69">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="goBack" layoutX="178.0" layoutY="507.0" opacity="0.0" textFill="#6abf69">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="42.0" layoutY="501.0" prefHeight="25.0" prefWidth="193.0" text="Already have a account?" textFill="#649490">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="btnLogin" layoutX="207.0" layoutY="501.0" onAction="#handleButtonAction" ripplerFill="WHITE" text="Sign in" textFill="#37c2f8">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
             <Pane fx:id="pnSignIn" prefHeight="543.0" prefWidth="331.0" style="-fx-background-color: white;">
                <children>
                   <ImageView fitHeight="164.0" fitWidth="201.0" layoutX="72.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
