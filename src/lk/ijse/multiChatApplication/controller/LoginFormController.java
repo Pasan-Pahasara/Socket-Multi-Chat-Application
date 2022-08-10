@@ -3,12 +3,18 @@ package lk.ijse.multiChatApplication.controller;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import lk.ijse.multiChatApplication.model.User;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -126,7 +132,27 @@ public class LoginFormController {
         }
     }
 
+    /**
+     * Navigations To Chat Room
+     */
     private void changeWindow() {
+        Stage stage = (Stage) txtUsername.getScene().getWindow();
+        URL resource = this.getClass().getResource("/lk/ijse/multiChatApplication/view/UserChatRoom.fxml");
+        Parent load = null;
+        try {
+            load = FXMLLoader.load(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(load);
+        stage.setScene(scene);
+        stage.show();
+        stage.setTitle(username + "");
+        stage.setOnCloseRequest(event -> {
+            System.exit(0);
+        });
+        stage.setResizable(false);
+        stage.show();
     }
 
     public void backLogin(MouseEvent mouseEvent) {
