@@ -66,6 +66,37 @@ public class UserChatRoomController extends Thread implements Initializable {
         }
     }
 
+    /**
+     * Thread Was Constructed Using A Separate Runnable run Object
+     */
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                String msg = reader.readLine();
+                String[] split = msg.split(" ");
+                String terminal = split[0];
+                System.out.println(terminal);
+                StringBuilder buildFullMsg = new StringBuilder();
+                for (int i = 1; i < split.length; i++) {
+                    buildFullMsg.append(split[i]);
+                }
+                System.out.println(buildFullMsg);
+                if (terminal.equalsIgnoreCase(LoginFormController.username + ":")) {
+                    continue;
+                } else if (buildFullMsg.toString().equalsIgnoreCase("bye")) {
+                    break;
+                }
+                messageRoom.appendText(msg + "\n");
+            }
+            reader.close();
+            writer.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void sendMessageByKey(KeyEvent keyEvent) {
     }
 
