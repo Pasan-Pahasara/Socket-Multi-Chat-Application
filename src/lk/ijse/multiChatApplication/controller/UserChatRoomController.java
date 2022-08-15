@@ -184,7 +184,7 @@ public class UserChatRoomController extends Thread implements Initializable {
     }
 
     /**
-     * Choose Image
+     * Choose Profile Image
      */
     public void chooseImageButton(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -217,7 +217,16 @@ public class UserChatRoomController extends Thread implements Initializable {
         }
     }
 
+    /**
+     * Choose Sending Images
+     */
     public void selectImage(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Image");
+        this.filePath = fileChooser.showOpenDialog(stage);
+        writer.println(clientName.getText() + " " + "img" + filePath.getPath());
+        writer.flush();
     }
 
     public void selectEmoji(MouseEvent mouseEvent) {
