@@ -2,10 +2,12 @@ package lk.ijse.multiChatApplication.controller;
 
 import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXButton;
+import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -15,10 +17,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lk.ijse.multiChatApplication.model.User;
@@ -101,13 +106,84 @@ public class UserChatRoomController extends Thread implements Initializable {
                 for (int i = 1; i < split.length; i++) {
                     buildFullMsg.append(split[i]);
                 }
+
+                String[] massageAr = msg.split(" ");
+                String string = "";
+                for (int i = 0; i < massageAr.length - 1; i++) {
+                    string += massageAr[i + 1] + " ";
+                }
+
+                Text text = new Text(string);
+                String fChar = "";
+
+                if (string.length() > 3) {
+                    fChar = string.substring(0, 3);
+                }
+
+                if (fChar.equalsIgnoreCase("img")) {
+                    string = string.substring(3, string.length() - 1);
+
+                    File file = new File(string);
+                    Image image = new Image(file.toURI().toString());
+
+                    ImageView imageView = new ImageView(image);
+
+                    imageView.setFitWidth(150);
+                    imageView.setFitHeight(200);
+
+                    HBox hBox = new HBox(10);
+                    hBox.setAlignment(Pos.BOTTOM_RIGHT);
+
+                    if (!terminal.equalsIgnoreCase(clientName.getText())) {
+                        vBox.setAlignment(Pos.TOP_LEFT);
+                        hBox.setAlignment(Pos.CENTER_LEFT);
+
+                        Text text1 = new Text("  " + terminal + " :");
+                        hBox.getChildren().add(text1);
+                        hBox.getChildren().add(imageView);
+                    } else {
+                        hBox.setAlignment(Pos.BOTTOM_RIGHT);
+                        hBox.getChildren().add(imageView);
+                        Text text1 = new Text(": Me ");
+                        hBox.getChildren().add(text1);
+                    }
+
+                    Platform.runLater(() -> vBox.getChildren().addAll(hBox));
+
+                } else {
+                    TextFlow tempTextFlow = new TextFlow();
+
+                    if (!terminal.equalsIgnoreCase(clientName.getText() + ":")) {
+                        Text name = new Text(terminal + " ");
+                        name.getStyleClass().add("name");
+                        tempTextFlow.getChildren().add(name);
+                    }
+
+                    tempTextFlow.getChildren().add(text);
+                    tempTextFlow.setMaxWidth(100);
+
+                    TextFlow textFlow = new TextFlow(tempTextFlow);
+                    HBox hBox = new HBox(10);
+
+                    if (!terminal.equalsIgnoreCase(clientName.getText() + ":")) {
+                        vBox.setAlignment(Pos.TOP_LEFT);
+                        hBox.setAlignment(Pos.CENTER_LEFT);
+                        hBox.getChildren().add(textFlow);
+                    } else {
+                        Text text1 = new Text(buildFullMsg + ": Me");
+                        TextFlow textFlow1 = new TextFlow(text1);
+                        hBox.setAlignment(Pos.BOTTOM_RIGHT);
+                        hBox.getChildren().add(textFlow1);
+                    }
+                    Platform.runLater(() -> vBox.getChildren().addAll(hBox));
+                }
+
                 System.out.println(buildFullMsg);
                 if (terminal.equalsIgnoreCase(LoginFormController.username + ":")) {
                     continue;
                 } else if (buildFullMsg.toString().equalsIgnoreCase("bye")) {
                     break;
                 }
-                messageRoom.appendText(msg + "\n");
             }
             reader.close();
             writer.close();
@@ -133,8 +209,6 @@ public class UserChatRoomController extends Thread implements Initializable {
     public void send() {
         String message = msgField.getText();
         writer.println(LoginFormController.username + ": " + message);
-        messageRoom.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        messageRoom.appendText("Me: " + message + "\n");
         msgField.setText("");
         if (message.equalsIgnoreCase("BYE") || (message.equalsIgnoreCase("logout"))) {
             System.exit(0);
