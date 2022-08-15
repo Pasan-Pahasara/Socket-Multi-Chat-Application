@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
@@ -50,6 +51,8 @@ public class UserChatRoomController extends Thread implements Initializable {
     public TextField fileChoosePath;
     public boolean toggleChat = false, toggleProfile = false;
     public boolean saveControl = false;
+    public VBox vBox;
+    public ImageView emojiBtn;
 
     Socket socket;
     BufferedReader reader;
