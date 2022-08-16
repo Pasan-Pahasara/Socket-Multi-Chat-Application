@@ -48,7 +48,7 @@ public class ClientHandler extends Thread {
                 }
             }
         } catch (SocketException e) {
-            System.out.println("Error occurred in main: " + e.getStackTrace());
+            System.out.println("Error occurred in lk.ijse.multiChatApplication.main: " + e.getStackTrace());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

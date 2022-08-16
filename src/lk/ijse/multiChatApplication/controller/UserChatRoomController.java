@@ -11,28 +11,33 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lk.ijse.multiChatApplication.model.User;
+import lk.ijse.multiChatApplication.main.java.com.madeorsk.emojisfx.EmojisLabel;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
 import static lk.ijse.multiChatApplication.controller.LoginFormController.users;
@@ -57,6 +62,8 @@ public class UserChatRoomController extends Thread implements Initializable {
     public boolean saveControl = false;
     public VBox vBox;
     public ImageView emojiBtn;
+    public ScrollPane emojiScroller;
+    public AnchorPane emojiPane;
 
     Socket socket;
     BufferedReader reader;
@@ -71,6 +78,21 @@ public class UserChatRoomController extends Thread implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        VBox box = new VBox();
+        box.prefHeightProperty().bind(emojiPane.heightProperty());
+        box.prefWidthProperty().bind(emojiPane.widthProperty());
+        emojiPane.getChildren().add(box);
+
+        String emojisList = new String(" \uD83D\uDC99 \uD83D\uDC9B \uD83D\uDC9A \uD83D\uDDA4 \uD83D\uDC9C \uD83D\uDE03 \uD83D\uDC4B \uD83E\uDD1A \uD83D\uDE04 \uD83D\uDE01 \uD83D\uDE06 \uD83D\uDE05 \uD83D\uDE02 \uD83E\uDD23 \uD83D\uDE0A \uD83D\uDE07 \uD83D\uDE42 \uD83D\uDE43 \uD83D\uDE09 \uD83D\uDE0C \uD83D\uDE0D \uD83D\uDE18 \uD83D\uDE17 \uD83D\uDE19 \uD83D\uDE1A \uD83D\uDE0B \uD83D\uDE1B \uD83D\uDE1D \uD83D\uDE1C \uD83E\uDD13 \uD83D\uDE0E \uD83D\uDE0F \uD83D\uDE12 \uD83D\uDE1E \uD83D\uDE14 \uD83D\uDE1F \uD83D\uDE15 \uD83D\uDE41 \uD83D\uDE16 \uD83D\uDE2B \uD83D\uDE29 \uD83D\uDE22 \uD83D\uDE2D \uD83D\uDE24 \uD83D\uDE20 \uD83D\uDE21 \uD83D\uDE33".getBytes(), StandardCharsets.UTF_8);
+
+        EmojisLabel emojisLabel = new EmojisLabel(emojisList);
+        emojisLabel.setPrefWidth(236);
+        emojisLabel.setFont(Font.font("Aller Light", 20));
+        emojisLabel.setTextFill(Color.BLACK);
+        emojisLabel.setSelectionFill(Color.BLACK);
+        emojisLabel.setSelectedTextFill(Color.WHITE);
+        box.getChildren().add(emojisLabel);
+
         clientName.setText(LoginFormController.username);
         connectSocket();
     }
@@ -162,7 +184,7 @@ public class UserChatRoomController extends Thread implements Initializable {
                     tempTextFlow.setMaxWidth(120);
 
                     TextFlow textFlow = new TextFlow(tempTextFlow);
-                    textFlow.setStyle("-fx-background-color:#FD85FF;"+"-fx-background-radius: 20px");
+                    textFlow.setStyle("-fx-background-color:#FD85FF;" + "-fx-background-radius: 20px");
                     textFlow.setPadding(new Insets(5, 10, 5, 10));
                     HBox hBox = new HBox(10);
                     hBox.setPadding(new Insets(5));
@@ -174,7 +196,7 @@ public class UserChatRoomController extends Thread implements Initializable {
                     } else {
                         Text text1 = new Text(buildFullMsg + ": Me");
                         TextFlow textFlow1 = new TextFlow(text1);
-                        textFlow1.setStyle("-fx-background-color:#6EDFC5;"+"-fx-background-radius: 20px");
+                        textFlow1.setStyle("-fx-background-color:#6EDFC5;" + "-fx-background-radius: 20px");
                         textFlow1.setPadding(new Insets(5, 10, 5, 10));
                         hBox.setAlignment(Pos.BOTTOM_RIGHT);
                         hBox.getChildren().add(textFlow1);
@@ -214,6 +236,7 @@ public class UserChatRoomController extends Thread implements Initializable {
         String message = msgField.getText();
         writer.println(LoginFormController.username + ": " + message);
         msgField.setText("");
+        emojiScroller.toBack();
         if (message.equalsIgnoreCase("BYE") || (message.equalsIgnoreCase("logout"))) {
             System.exit(0);
         }
@@ -224,6 +247,7 @@ public class UserChatRoomController extends Thread implements Initializable {
      */
     public void sendMessageByKey(KeyEvent keyEvent) {
         if (keyEvent.getCode().toString().equals("ENTER")) {
+            emojiScroller.toBack();
             send();
         }
     }
@@ -306,12 +330,21 @@ public class UserChatRoomController extends Thread implements Initializable {
             this.filePath = fileChooser.showOpenDialog(stage);
             writer.println(clientName.getText() + " " + "img" + filePath.getPath());
             writer.flush();
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("Image is not Selected!");
         }
     }
 
+    /**
+     * Choose Sending Emoji
+     */
     public void selectEmoji(MouseEvent mouseEvent) {
+        if (mouseEvent.getSource().equals(emojiBtn)) {
+            new FadeIn(emojiPane).play();
+            emojiScroller.toFront();
+        } else if (mouseEvent.getSource().equals(emojiBtn)) {
+            new FadeIn(chat).play();
+            emojiScroller.toFront();
+        }
     }
-
 }
