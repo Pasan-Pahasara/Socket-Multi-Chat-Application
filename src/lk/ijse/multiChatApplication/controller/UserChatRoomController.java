@@ -6,7 +6,7 @@ import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.geometry.NodeOrientation;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -128,8 +128,8 @@ public class UserChatRoomController extends Thread implements Initializable {
 
                     ImageView imageView = new ImageView(image);
 
-                    imageView.setFitWidth(150);
-                    imageView.setFitHeight(200);
+                    imageView.setFitWidth(100);
+                    imageView.setFitHeight(70);
 
                     HBox hBox = new HBox(10);
                     hBox.setAlignment(Pos.BOTTOM_RIGHT);
@@ -160,10 +160,13 @@ public class UserChatRoomController extends Thread implements Initializable {
                     }
 
                     tempTextFlow.getChildren().add(text);
-                    tempTextFlow.setMaxWidth(100);
+                    tempTextFlow.setMaxWidth(120);
 
                     TextFlow textFlow = new TextFlow(tempTextFlow);
+                    textFlow.setStyle("-fx-background-color:#FD85FF;"+"-fx-background-radius: 20px");
+                    textFlow.setPadding(new Insets(5, 10, 5, 10));
                     HBox hBox = new HBox(10);
+                    hBox.setPadding(new Insets(5));
 
                     if (!terminal.equalsIgnoreCase(clientName.getText() + ":")) {
                         vBox.setAlignment(Pos.TOP_LEFT);
@@ -172,6 +175,8 @@ public class UserChatRoomController extends Thread implements Initializable {
                     } else {
                         Text text1 = new Text(buildFullMsg + ": Me");
                         TextFlow textFlow1 = new TextFlow(text1);
+                        textFlow1.setStyle("-fx-background-color:#6EDFC5;"+"-fx-background-radius: 20px");
+                        textFlow1.setPadding(new Insets(5, 10, 5, 10));
                         hBox.setAlignment(Pos.BOTTOM_RIGHT);
                         hBox.getChildren().add(textFlow1);
                     }
@@ -295,12 +300,16 @@ public class UserChatRoomController extends Thread implements Initializable {
      * Choose Sending Images
      */
     public void selectImage(MouseEvent mouseEvent) {
-        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Image");
-        this.filePath = fileChooser.showOpenDialog(stage);
-        writer.println(clientName.getText() + " " + "img" + filePath.getPath());
-        writer.flush();
+        try {
+            Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+            fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Image");
+            this.filePath = fileChooser.showOpenDialog(stage);
+            writer.println(clientName.getText() + " " + "img" + filePath.getPath());
+            writer.flush();
+        }catch (NullPointerException e){
+            System.out.println("Image is not Selected!");
+        }
     }
 
     public void selectEmoji(MouseEvent mouseEvent) {
