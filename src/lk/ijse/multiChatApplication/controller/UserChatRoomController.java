@@ -43,7 +43,6 @@ import static lk.ijse.multiChatApplication.controller.LoginFormController.users;
  **/
 public class UserChatRoomController extends Thread implements Initializable {
     public Pane chat;
-    public TextArea messageRoom;
     public TextField msgField;
     public Circle showProPic;
     public Label clientName;

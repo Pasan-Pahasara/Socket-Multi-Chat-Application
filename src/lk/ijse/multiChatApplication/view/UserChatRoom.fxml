@@ -81,6 +81,11 @@
             </Pane>
             <Pane fx:id="chat" prefHeight="494.0" prefWidth="332.0" style="-fx-background-color: FFFFFF;">
                <children>
+                  <ScrollPane fx:id="emojiScroller" layoutX="16.0" layoutY="312.0" prefHeight="110.0" prefWidth="238.0" style="-fx-background-radius: 20;">
+                     <content>
+                        <AnchorPane fx:id="emojiPane" prefHeight="110.0" prefWidth="238.0" style="-fx-background-color: #FFFF; -fx-background-radius: 20;" />
+                     </content>
+                  </ScrollPane>
                   <Line endX="231.0" layoutX="100.0" layoutY="4.0" startX="-100.0" stroke="#bec0c9" />
                   <TextField fx:id="msgField" layoutX="21.0" layoutY="437.0" onKeyPressed="#sendMessageByKey" prefHeight="33.0" prefWidth="238.0" promptText="Type a message here..." style="-fx-background-radius: 90; -fx-border-color: #EFEEEE; -fx-background-color: #EFEEEE;" />
                   <Circle fill="#44d7b6" layoutX="295.0" layoutY="454.0" radius="19.0" stroke="#44d7b6" strokeType="INSIDE" />
